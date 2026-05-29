@@ -96,8 +96,11 @@ canvas {
 .overlay {
   position: fixed;
   inset: 0;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
   background: radial-gradient(circle, rgba(6, 10, 24, 0.25), rgba(6, 10, 24, 0.72));
   opacity: 0;
   pointer-events: none;
@@ -108,13 +111,21 @@ canvas {
 .home-screen {
   position: fixed;
   inset: 0;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
   background: radial-gradient(circle, rgba(6, 10, 24, 0.25), rgba(6, 10, 24, 0.72));
   opacity: 0;
   pointer-events: none;
   transition: opacity 220ms ease;
   z-index: 3;
+}
+
+.home-screen .panel,
+.overlay .panel {
+  margin: auto;
 }
 
 .home-screen.visible {
@@ -195,3 +206,4 @@ h1 {
   .pair-button { font-size: 16px; padding: 12px 18px; }
   #overlayText { font-size: 18px; }
 }
+
