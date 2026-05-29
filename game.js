@@ -74,6 +74,7 @@ function showHome(message = 'Connect a gamepad to begin.') {
   homeText.textContent = message;
   homeScreen.classList.add('visible');
   overlay.classList.remove('visible');
+  canvas.classList.remove('visible');
   scoreEl.textContent = String(state.score);
   state.pressedLatch = false;
 }
@@ -82,8 +83,13 @@ function hideHome() {
   homeScreen.classList.remove('visible');
 }
 
+function showGameCanvas() {
+  canvas.classList.add('visible');
+}
+
 function enterGame() {
   hideHome();
+  showGameCanvas();
   if (state.mode !== 'play') resetGame();
 }
 
@@ -176,6 +182,11 @@ function update(dt) {
 
   if (!gamepad) {
     if (state.mode !== 'home') showHome('Controller disconnected. Pair a controller to continue.');
+    return;
+  }
+
+  if (state.mode === 'home') {
+    enterGame();
     return;
   }
 
@@ -333,6 +344,7 @@ function init() {
   resize();
   overlayText.textContent = 'Paused. Press Start or P to Resume.';
   scoreEl.textContent = '0';
+  canvas.classList.remove('visible');
   window.addEventListener('resize', resize);
   requestAnimationFrame(loop);
 }
