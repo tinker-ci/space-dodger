@@ -69,14 +69,21 @@ function controllerLabel(gamepad) {
   return 'No controller';
 }
 
-function showHome(message = 'Connect a gamepad to begin.') {
+function focusPairButton() {
+  if (pairButton.hidden) return;
+  requestAnimationFrame(() => pairButton.focus());
+}
+
+function showHome(message = 'Connect a gamepad to begin.', controllerReady = false) {
   state.mode = 'home';
   homeText.textContent = message;
+  pairButton.hidden = controllerReady;
   homeScreen.classList.add('visible');
   overlay.classList.remove('visible');
   canvas.classList.remove('visible');
   scoreEl.textContent = String(state.score);
   state.pressedLatch = false;
+  if (!controllerReady) focusPairButton();
 }
 
 function hideHome() {
@@ -132,7 +139,7 @@ pairButton.addEventListener('click', openPlatformPairing);
 
 input.onConnect = (gamepad) => {
   updateControllerUI(gamepad);
-  enterGame();
+  showHome('Controller detected. Press A, Start, Enter, or Space to begin.', true);
 };
 input.onDisconnect = () => {
   updateControllerUI(null);
@@ -141,7 +148,7 @@ input.onDisconnect = () => {
 updateControllerUI(input.pollGamepad());
 
 if (input.hasConnectedGamepad()) {
-  enterGame();
+  showHome('Controller detected. Press A, Start, Enter, or Space to begin.', true);
 } else {
   showHome();
 }
@@ -186,7 +193,11 @@ function update(dt) {
   }
 
   if (state.mode === 'home') {
-    enterGame();
+    if (input.isStartPressed() && !state.startLatch) {
+      state.startLatch = true;
+      enterGame();
+    }
+    if (!input.isStartPressed()) state.startLatch = false;
     return;
   }
 
@@ -350,3 +361,4 @@ function init() {
 }
 
 init();
+
