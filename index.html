@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="app-shell">
-    <!-- canvas id="gameCanvas" aria-label="Retro Space Dodger game" role="img"></canvas -->
+    <canvas id="gameCanvas" class="game-canvas" aria-label="Retro Space Dodger game" role="img"></canvas>
 
     <div class="hud">
       <div class="hud-block">
@@ -19,6 +19,9 @@
         <span class="label">Score</span>
         <span id="score" class="value">0</span>
       </div>
+    </div>
+
+"index.html" 55L, 1898B
     </div>
 
     <div id="controllerBadge" class="controller-badge">No controller</div>
@@ -40,12 +43,14 @@
         <p id="overlayText">Paused. Press Start or P to Resume.</p>
         <p class="hint">Press Start on your controller to continue.</p>
       </div>
+        <p class="hint">Press Start on your controller to continue.</p>
+      </div>
     </div>
   </div>
 
   <script type="module" src="game.js"></script>
   <script src="./bundle.js"></script>
-  <script>
+ <script>
   // Set focus to the first button on page load
     window.onload = function() {
       document.getElementById('pairButton').focus();
