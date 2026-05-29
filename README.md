@@ -1,1 +1,15 @@
 # space-dodger
+This software specification for a "2D Space Dodger" game outlines a functional requirement document (FRD) designed to test and utilize the HTML5 Gamepad API in real-time. It maps out core mechanics, controller logic, and strict technical guidelines for development.
+
+1. Overview & Core MechanicsTitle: Retro Space DodgerConcept: A minimalist 2D obstacle avoidance game. The player pilots a spaceship dodging incoming asteroids.Goal: Survive as long as possible. The score increases every second the player remains alive.Input: Native Gamepad API support is the primary control scheme. Keyboard input is available as a backup.
+
+2. Game States
+The application manages four distinct states:Title Screen: Displays the game title, high score, and a prompt: "Press Start on Gamepad to Play."Controller Detection (Setup): Actively listens for gamepadconnected events. Highlights which controller (e.g., Xbox or PlayStation layout) is synced.Active Gameplay: The main loop. Spawns asteroids, updates player coordinates, checks for collisions, and updates the score.Game Over: Displays the final score and a "Press A/Start to Restart" prompt.
+
+3. Game Controller Detection Specs
+The system continuously monitors for active hardware connections and dynamically updates the input device.Event Listeners:window.addEventListener("gamepadconnected", (e) => {...})window.addEventListener("gamepaddisconnected", (e) => {...})Polling Rate: requestAnimationFrame updates the Gamepad state array to read real-time button and stick data smoothly.Deadzone Configuration: A deadzone of \(0.15\) is applied to \(X\) and \(Y\) axes to prevent unwanted drifting.Button Mapping (Standard Gamepad):Left Analog Stick / D-pad: Moves the player spaceship vertically and horizontally.Button 0 (A): Select / Accelerate (Contextual).Button 9 (Start): Pause / Resume game.
+
+4. Technical Stack & ArchitectureLanguage:
+ Vanilla JavaScript (ES6+), HTML5 Canvas, CSS3.Dependencies: None. This ensures the app is lightweight and highly performant.File Structure:index.html: Contains the Canvas element and overlay UI wrappers.style.css: Modern styling with a retro-futuristic aesthetic and responsive layout.game.js: Main engine managing states, entity rendering, and Gamepad polling logic.input.js: Dedicated module for mapping Gamepad API and keyboard event listeners.Performance: Capped at \(60\) FPS using requestAnimationFrame.
+
+5. UI/UX RequirementsOverlay State: A dynamic visual indicator displays an active controller icon when properly connected.Heads-Up Display (HUD): Top-right corner displays the real-time score. The top-
