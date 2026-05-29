@@ -176,13 +176,3 @@ h1 {
 .pair-button:active {
   transform: translateY(1px);
 }
-
-@media (max-width: 640px) {
-  .hud { top: 10px; left: 10px; right: 10px; }
-  .hud-block { min-width: 100px; padding: 8px 10px; }
-  .value { font-size: 22px; }
-  .controller-badge { top: 74px; font-size: 12px; }
-  .panel { padding: 24px 18px; }
-  .pair-button { font-size: 16px; padding: 12px 18px; }
-  #overlayText { font-size: 18px; }
-}
